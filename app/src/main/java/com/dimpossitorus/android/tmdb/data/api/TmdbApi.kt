@@ -1,0 +1,32 @@
+package com.dimpossitorus.android.tmdb.data.api
+
+import com.dimpossitorus.android.tmdb.domain.entities.DiscoverResponse
+import com.dimpossitorus.android.tmdb.domain.entities.GenreResponse
+import com.dimpossitorus.android.tmdb.domain.entities.Movie
+import retrofit2.Response
+import retrofit2.http.GET
+import retrofit2.http.Path
+import retrofit2.http.Query
+import retrofit2.http.QueryMap
+
+const val API_KEY = "9a0a61fee20ec5341f8e061937f20174"
+
+interface TmdbApi {
+
+    @GET("discover/movie")
+    suspend fun getMovieDiscover(
+        @Query("api_key") apiKey: String,
+        @Query("page") page: Int,
+        @QueryMap additionalQuery: Map<String, Any>?
+    ): Response<DiscoverResponse>
+
+    @GET("movie/{movieId}")
+    suspend fun getMovieDetail(
+        @Query("api_key") apiKey: String,
+        @Path("movieId") movieId: Int,
+        @Query("append_to_response") additionalRequest: String?
+    ):Response<Movie>
+
+    @GET("genre/movie/list")
+    suspend fun getGenres(@Query("api_key") apiKey: String): Response<GenreResponse>
+}
