@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import com.dimpossitorus.android.tmdb.R
 import com.dimpossitorus.android.tmdb.presentation.feature.genre.GenreListFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,13 +17,6 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         replaceFragment(GenreListFragment())
-    }
-
-    fun replaceFragment(fragment: Fragment) {
-        val fragmentTransaction = supportFragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.container, fragment)
-        fragmentTransaction.addToBackStack(fragment::class.java.canonicalName)
-        fragmentTransaction.commit()
     }
 
 }

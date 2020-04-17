@@ -10,21 +10,24 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.dimpossitorus.android.tmdb.R
-import com.dimpossitorus.android.tmdb.presentation.BaseApplication
+import com.dimpossitorus.android.tmdb.domain.entities.Genre
+import com.dimpossitorus.android.tmdb.presentation.adapter.GenresAdapter
+import com.dimpossitorus.android.tmdb.presentation.adapter.OnItemClickListener
 import com.dimpossitorus.android.tmdb.presentation.feature.BaseFragment
+import com.dimpossitorus.android.tmdb.presentation.feature.discover.DiscoverMovieFragment
 import kotlinx.android.synthetic.main.fragment_genre_list.*
-import javax.inject.Inject
 
 /**
- * A simple [Fragment] subclass.
+ * Created by Dimpos Sitorus
  */
 class GenreListFragment : BaseFragment() {
 
     lateinit var viewModel: GenreViewModel
+    lateinit var genresAdapter: GenresAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,8 +40,22 @@ class GenreListFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
+        initView()
         setViewModelObserver()
         viewModel.getGenres()
+    }
+
+    fun initView() {
+        genresAdapter = GenresAdapter(object : OnItemClickListener {
+            override fun onClick(searchItem: Genre) {
+                replaceFragment(DiscoverMovieFragment())
+            }
+        })
+        genreList.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = genresAdapter
+        }
+
     }
 
     fun setViewModelObserver() {
@@ -50,6 +67,7 @@ class GenreListFragment : BaseFragment() {
             }
             it.genres?.let {
                 Log.d("GENRE", it.genres.toString())
+                genresAdapter.setData(it)
             }
             it.error?.let {
                 Toast.makeText(context, it, Toast.LENGTH_LONG).apply {
