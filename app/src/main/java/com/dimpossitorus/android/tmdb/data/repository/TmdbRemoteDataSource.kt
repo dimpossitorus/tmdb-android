@@ -5,6 +5,7 @@ import com.dimpossitorus.android.tmdb.data.api.TmdbApi
 import com.dimpossitorus.android.tmdb.domain.entities.DiscoverResponse
 import com.dimpossitorus.android.tmdb.domain.entities.GenreResponse
 import com.dimpossitorus.android.tmdb.domain.entities.Movie
+import com.dimpossitorus.android.tmdb.domain.entities.ReviewResponse
 import javax.inject.Inject
 
 class TmdbRemoteDataSource @Inject constructor(
@@ -31,7 +32,14 @@ class TmdbRemoteDataSource @Inject constructor(
     }
 
     suspend fun getMovieDetail(movieId: Int, additionalInfo: List<String>?): Movie? {
-        val response = tmdbApi.getMovieDetail(API_KEY, movieId, additionalInfo?.joinToString())
+        val response = tmdbApi.getMovieDetail(movieId, API_KEY, additionalInfo?.joinToString())
+        if (response.isSuccessful) {
+            return response.body()
+        } else return null
+    }
+
+    suspend fun getMovieReview(movieId: Int, page: Int): ReviewResponse? {
+        val response = tmdbApi.getMovieReview(movieId, API_KEY, page)
         if (response.isSuccessful) {
             return response.body()
         } else return null

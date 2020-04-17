@@ -18,4 +18,11 @@ open class BaseActivity : AppCompatActivity() {
         fragmentTransaction.replace(R.id.container, fragment)
         fragmentTransaction.commit()
     }
+
+    fun addFragment(fragment: Fragment) {
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.add(R.id.container, fragment)
+        fragmentTransaction.addToBackStack(fragment::class.java.canonicalName)
+        fragmentTransaction.commit()
+    }
 }

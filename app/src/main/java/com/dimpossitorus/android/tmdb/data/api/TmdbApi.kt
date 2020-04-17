@@ -3,6 +3,7 @@ package com.dimpossitorus.android.tmdb.data.api
 import com.dimpossitorus.android.tmdb.domain.entities.DiscoverResponse
 import com.dimpossitorus.android.tmdb.domain.entities.GenreResponse
 import com.dimpossitorus.android.tmdb.domain.entities.Movie
+import com.dimpossitorus.android.tmdb.domain.entities.ReviewResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -22,11 +23,18 @@ interface TmdbApi {
 
     @GET("movie/{movieId}")
     suspend fun getMovieDetail(
-        @Query("api_key") apiKey: String,
         @Path("movieId") movieId: Int,
+        @Query("api_key") apiKey: String,
         @Query("append_to_response") additionalRequest: String?
-    ):Response<Movie>
+    ): Response<Movie>
 
     @GET("genre/movie/list")
     suspend fun getGenres(@Query("api_key") apiKey: String): Response<GenreResponse>
+
+    @GET("movie/{movieId}/reviews")
+    suspend fun getMovieReview(
+        @Path("movieId") movieId: Int,
+        @Query("api_key") apiKey: String,
+        @Query("page") page: Int
+    ): Response<ReviewResponse>
 }

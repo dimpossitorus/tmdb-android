@@ -15,32 +15,40 @@ class DiscoverViewModel @Inject constructor(
     var currentPage = 1
     var genreId = -1
 
+    var canGetNextPage = true
+
     init {
         discoverViewState.value = DiscoverViewState()
     }
 
     fun getDiscoverMovie(genre: Int) {
         genreId = genre
-        discoverViewState.value = discoverViewState.value?.copy(true)
+        discoverViewState.value = discoverViewState.value?.copy(true, null, null)
         viewModelScope.launch {
             try {
                 val result = getDiscoverMovieUseCase.execute(genreId, currentPage)
                 result?.let {
+                    if (result.page == result.totalPages) {
+                        canGetNextPage = false
+                    }
                     discoverViewState.value =
-                        discoverViewState.value?.copy(showLoading = false, discoverResponse = it)
+                        discoverViewState.value?.copy(false, it, null)
                 } ?: run {
+                    canGetNextPage = false
                     discoverViewState.value =
-                        discoverViewState.value?.copy(showLoading = false, error = "Error")
+                        discoverViewState.value?.copy(false, null, "Error")
                 }
             } catch (e: Throwable) {
+                canGetNextPage = false
                 e.printStackTrace()
                 discoverViewState.value =
-                    discoverViewState.value?.copy(showLoading = false, error = e.message)
+                    discoverViewState.value?.copy(false, null, e.message)
             }
         }
     }
 
     fun getNextPage() {
-        discoverViewState.value = discoverViewState.value?.copy(true)
+        currentPage++
+        getDiscoverMovie(genreId)
     }
 }

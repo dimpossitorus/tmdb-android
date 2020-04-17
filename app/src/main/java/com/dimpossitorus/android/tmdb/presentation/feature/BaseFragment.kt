@@ -18,4 +18,7 @@ open class BaseFragment : Fragment() {
     fun replaceFragment(fragment: Fragment) {
         (activity as BaseActivity).replaceFragment(fragment)
     }
+    fun addFragment(fragment: Fragment) {
+        (activity as BaseActivity).replaceFragment(fragment)
+    }
 }

@@ -1,8 +1,7 @@
 package com.dimpossitorus.android.tmdb.domain.entities
 
-import com.dimpossitorus.android.tmdb.domain.entities.Video
+import java.io.Serializable
 
 data class VideosResponse(
     val results: List<Video>
-) {
-}
+) : Serializable
