@@ -17,7 +17,7 @@ interface TmdbApi {
     suspend fun getMovieDiscover(
         @Query("api_key") apiKey: String,
         @Query("page") page: Int,
-        @QueryMap additionalQuery: Map<String, Any>?
+        @QueryMap additionalQuery: Map<String, String>?
     ): Response<DiscoverResponse>
 
     @GET("movie/{movieId}")

@@ -14,6 +14,7 @@ data class Movie(
     val homepage: String,
     @SerializedName("release_date") val releaseDate: Date,
     val runtime: Int,
+    @SerializedName("poster_path") val posterUrl: String,
     val reviews: ReviewResponse,
     val videos: VideosResponse
 ) {

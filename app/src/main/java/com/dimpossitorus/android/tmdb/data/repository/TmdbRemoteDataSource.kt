@@ -19,9 +19,9 @@ class TmdbRemoteDataSource @Inject constructor(
     }
 
     suspend fun getDiscover(page: Int, genreId: Int? = null): DiscoverResponse? {
-        val additionalQuery = mutableMapOf<String, Any>()
+        val additionalQuery = mutableMapOf<String, String>()
         genreId?.let {
-            additionalQuery.put("with_genres", genreId)
+            additionalQuery.put("with_genres", genreId.toString())
         }
         val response = tmdbApi.getMovieDiscover(API_KEY, page, additionalQuery)
         if (response.isSuccessful) {

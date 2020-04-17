@@ -9,14 +9,13 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dimpossitorus.android.tmdb.R
 import com.dimpossitorus.android.tmdb.domain.entities.Genre
 import com.dimpossitorus.android.tmdb.presentation.adapter.GenresAdapter
-import com.dimpossitorus.android.tmdb.presentation.adapter.OnItemClickListener
+import com.dimpossitorus.android.tmdb.presentation.adapter.OnGenreItemClicked
 import com.dimpossitorus.android.tmdb.presentation.feature.BaseFragment
 import com.dimpossitorus.android.tmdb.presentation.feature.discover.DiscoverMovieFragment
 import kotlinx.android.synthetic.main.fragment_genre_list.*
@@ -46,9 +45,13 @@ class GenreListFragment : BaseFragment() {
     }
 
     fun initView() {
-        genresAdapter = GenresAdapter(object : OnItemClickListener {
-            override fun onClick(searchItem: Genre) {
-                replaceFragment(DiscoverMovieFragment())
+        genresAdapter = GenresAdapter(object : OnGenreItemClicked {
+            override fun onClick(genre: Genre) {
+                val bundle = Bundle()
+                bundle.putParcelable("GENRE", genre)
+                val fragment = DiscoverMovieFragment()
+                fragment.arguments = bundle
+                replaceFragment(fragment)
             }
         })
         genreList.apply {

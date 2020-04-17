@@ -10,8 +10,14 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import com.dimpossitorus.android.tmdb.R
+import com.dimpossitorus.android.tmdb.domain.entities.Genre
+import com.dimpossitorus.android.tmdb.domain.entities.Movie
+import com.dimpossitorus.android.tmdb.presentation.adapter.DiscoverAdapter
+import com.dimpossitorus.android.tmdb.presentation.adapter.OnDiscoverItemClicked
 import com.dimpossitorus.android.tmdb.presentation.feature.BaseFragment
+import kotlinx.android.synthetic.main.fragment_discover_movie.*
 
 /**
  * A simple [Fragment] subclass.
@@ -19,6 +25,8 @@ import com.dimpossitorus.android.tmdb.presentation.feature.BaseFragment
 class DiscoverMovieFragment : BaseFragment() {
 
     lateinit var viewModel: DiscoverViewModel
+    lateinit var discoverAdapter: DiscoverAdapter
+    var genre: Genre? = null
 
 
     override fun onCreateView(
@@ -27,6 +35,7 @@ class DiscoverMovieFragment : BaseFragment() {
     ): View? {
         getApplication().appComponent.inject(this)
         viewModel = ViewModelProvider(this, viewModelFactory).get(DiscoverViewModel::class.java)
+        genre = arguments?.get("GENRE") as Genre
         return inflater.inflate(R.layout.fragment_discover_movie, container, false)
     }
 
@@ -35,17 +44,30 @@ class DiscoverMovieFragment : BaseFragment() {
         super.onResume()
         initView()
         setViewModelObserver()
+        genre?.let {
+            viewModel.getDiscoverMovie(it.id)
+            genreTitle.text = it.name
+        }
     }
 
     fun initView() {
+        discoverAdapter = DiscoverAdapter(object : OnDiscoverItemClicked {
+            override fun onClick(movie: Movie) {
 
+            }
+        })
+        movieList.apply {
+            layoutManager = GridLayoutManager(context, 2)
+            adapter = discoverAdapter
+        }
     }
 
     fun setViewModelObserver() {
         viewModel.discoverViewState.observe(this, Observer {
 
             it.discoverResponse?.let { response ->
-                Log.d("GENRE", response.results.toString())
+                Log.d("DISCOVER", response.results.toString())
+                discoverAdapter.setData(response)
             }
             it.error?.let {
                 Toast.makeText(context, it, Toast.LENGTH_LONG).apply {

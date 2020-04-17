@@ -9,7 +9,7 @@ import com.dimpossitorus.android.tmdb.R
 import com.dimpossitorus.android.tmdb.domain.entities.Genre
 import com.dimpossitorus.android.tmdb.domain.entities.GenreResponse
 
-class GenresAdapter(val onItemClickListener: OnItemClickListener) :
+class GenresAdapter(val onItemClickListener: OnGenreItemClicked) :
     RecyclerView.Adapter<GenresAdapter.ViewHolder>() {
 
     val genres = ArrayList<Genre>()
@@ -40,7 +40,7 @@ class GenresAdapter(val onItemClickListener: OnItemClickListener) :
             genreName = itemView.findViewById<TextView>(R.id.genreName)
         }
 
-        fun bind(genre: Genre, onItemClickListener: OnItemClickListener) {
+        fun bind(genre: Genre, onItemClickListener: OnGenreItemClicked) {
             genreName.text = genre.name
             itemView.setOnClickListener {
                 onItemClickListener.onClick(genre)
@@ -49,6 +49,6 @@ class GenresAdapter(val onItemClickListener: OnItemClickListener) :
     }
 }
 
-interface OnItemClickListener {
-    fun onClick(searchItem: Genre)
+interface OnGenreItemClicked {
+    fun onClick(genre: Genre)
 }

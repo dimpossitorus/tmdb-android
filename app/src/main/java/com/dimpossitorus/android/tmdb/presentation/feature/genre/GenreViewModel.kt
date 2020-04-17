@@ -7,8 +7,9 @@ import com.dimpossitorus.android.tmdb.domain.usecase.GetGenresUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class GenreViewModel @Inject constructor(private val getGenresUseCase: GetGenresUseCase) :
-    ViewModel() {
+class GenreViewModel @Inject constructor(
+    private val getGenresUseCase: GetGenresUseCase
+) : ViewModel() {
 
     var genreState: MutableLiveData<GenreViewState> = MutableLiveData()
 
