@@ -1,5 +1,6 @@
 package com.dimpossitorus.android.tmdb.di
 
+import com.dimpossitorus.android.tmdb.data.di.DataModule
 import com.dimpossitorus.android.tmdb.data.di.NetworkModule
 import com.dimpossitorus.android.tmdb.presentation.BaseApplication
 import com.dimpossitorus.android.tmdb.presentation.feature.discover.DiscoverMovieFragment
@@ -13,6 +14,7 @@ import javax.inject.Singleton
     modules = [
         AppModule::class,
         ViewModelModule::class,
+        DataModule::class,
         NetworkModule::class]
 )
 interface AppComponent {
