@@ -1,4 +1,4 @@
-package com.dimpossitorus.android.tmdb.presentation.feature.genre
+package com.dimpossitorus.android.tmdb.feature.genre
 
 
 import android.os.Bundle
@@ -14,10 +14,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dimpossitorus.android.tmdb.R
 import com.dimpossitorus.android.tmdb.domain.entities.Genre
-import com.dimpossitorus.android.tmdb.presentation.adapter.GenresAdapter
-import com.dimpossitorus.android.tmdb.presentation.adapter.OnGenreItemClicked
-import com.dimpossitorus.android.tmdb.presentation.feature.BaseFragment
-import com.dimpossitorus.android.tmdb.presentation.feature.discover.DiscoverMovieFragment
+import com.dimpossitorus.android.tmdb.adapter.GenresAdapter
+import com.dimpossitorus.android.tmdb.adapter.OnGenreItemClicked
+import com.dimpossitorus.android.tmdb.BaseFragment
+import com.dimpossitorus.android.tmdb.feature.discover.DiscoverMovieFragment
 import kotlinx.android.synthetic.main.fragment_genre_list.*
 
 /**

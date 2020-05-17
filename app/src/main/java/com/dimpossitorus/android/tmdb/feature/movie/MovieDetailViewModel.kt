@@ -1,4 +1,4 @@
-package com.dimpossitorus.android.tmdb.presentation.feature.movie
+package com.dimpossitorus.android.tmdb.feature.movie
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

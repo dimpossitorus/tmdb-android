@@ -1,4 +1,4 @@
-package com.dimpossitorus.android.tmdb.presentation.feature.discover
+package com.dimpossitorus.android.tmdb.feature.discover
 
 import com.dimpossitorus.android.tmdb.domain.entities.DiscoverResponse
 

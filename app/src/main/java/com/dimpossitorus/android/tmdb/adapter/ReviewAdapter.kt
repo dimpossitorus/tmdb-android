@@ -1,4 +1,4 @@
-package com.dimpossitorus.android.tmdb.presentation.adapter
+package com.dimpossitorus.android.tmdb.adapter
 
 import android.view.LayoutInflater
 import android.view.View

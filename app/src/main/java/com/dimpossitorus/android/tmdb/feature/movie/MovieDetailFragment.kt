@@ -1,4 +1,4 @@
-package com.dimpossitorus.android.tmdb.presentation.feature.movie
+package com.dimpossitorus.android.tmdb.feature.movie
 
 
 import android.os.Bundle
@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dimpossitorus.android.tmdb.R
 import com.dimpossitorus.android.tmdb.domain.entities.Movie
 import com.dimpossitorus.android.tmdb.domain.entities.VideosResponse
-import com.dimpossitorus.android.tmdb.presentation.adapter.ReviewAdapter
-import com.dimpossitorus.android.tmdb.presentation.feature.BaseFragment
+import com.dimpossitorus.android.tmdb.adapter.ReviewAdapter
+import com.dimpossitorus.android.tmdb.BaseFragment
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerFragment

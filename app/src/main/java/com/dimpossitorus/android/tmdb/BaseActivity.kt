@@ -1,8 +1,7 @@
-package com.dimpossitorus.android.tmdb.presentation
+package com.dimpossitorus.android.tmdb
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.dimpossitorus.android.tmdb.R
 
 open class BaseActivity : AppCompatActivity() {
 

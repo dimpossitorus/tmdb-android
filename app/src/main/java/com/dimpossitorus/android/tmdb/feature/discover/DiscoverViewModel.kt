@@ -1,4 +1,4 @@
-package com.dimpossitorus.android.tmdb.presentation.feature.discover
+package com.dimpossitorus.android.tmdb.feature.discover
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

@@ -2,9 +2,9 @@ package com.dimpossitorus.android.tmdb.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.dimpossitorus.android.tmdb.presentation.feature.discover.DiscoverViewModel
-import com.dimpossitorus.android.tmdb.presentation.feature.genre.GenreViewModel
-import com.dimpossitorus.android.tmdb.presentation.feature.movie.MovieDetailViewModel
+import com.dimpossitorus.android.tmdb.feature.discover.DiscoverViewModel
+import com.dimpossitorus.android.tmdb.feature.genre.GenreViewModel
+import com.dimpossitorus.android.tmdb.feature.movie.MovieDetailViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

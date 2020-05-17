@@ -1,8 +1,9 @@
-package com.dimpossitorus.android.tmdb.presentation
+package com.dimpossitorus.android.tmdb.feature.main
 
 import android.os.Bundle
+import com.dimpossitorus.android.tmdb.BaseActivity
 import com.dimpossitorus.android.tmdb.R
-import com.dimpossitorus.android.tmdb.presentation.feature.genre.GenreListFragment
+import com.dimpossitorus.android.tmdb.feature.genre.GenreListFragment
 
 class MainActivity : BaseActivity() {
 

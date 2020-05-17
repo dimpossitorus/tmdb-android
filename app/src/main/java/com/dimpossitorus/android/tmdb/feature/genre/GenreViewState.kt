@@ -1,4 +1,4 @@
-package com.dimpossitorus.android.tmdb.presentation.feature.genre
+package com.dimpossitorus.android.tmdb.feature.genre
 
 import com.dimpossitorus.android.tmdb.domain.entities.GenreResponse
 

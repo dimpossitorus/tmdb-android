@@ -1,9 +1,9 @@
-package com.dimpossitorus.android.tmdb.presentation.feature
+package com.dimpossitorus.android.tmdb
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.dimpossitorus.android.tmdb.presentation.BaseActivity
-import com.dimpossitorus.android.tmdb.presentation.BaseApplication
+import com.dimpossitorus.android.tmdb.BaseActivity
+import com.dimpossitorus.android.tmdb.BaseApplication
 import javax.inject.Inject
 
 open class BaseFragment : Fragment() {

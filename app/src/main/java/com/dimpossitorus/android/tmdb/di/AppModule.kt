@@ -1,7 +1,7 @@
 package com.dimpossitorus.android.tmdb.di
 
 import android.content.Context
-import com.dimpossitorus.android.tmdb.presentation.BaseApplication
+import com.dimpossitorus.android.tmdb.BaseApplication
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

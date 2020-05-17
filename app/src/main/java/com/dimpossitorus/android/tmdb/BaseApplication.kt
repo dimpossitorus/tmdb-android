@@ -1,4 +1,4 @@
-package com.dimpossitorus.android.tmdb.presentation
+package com.dimpossitorus.android.tmdb
 
 import android.app.Application
 import com.dimpossitorus.android.tmdb.di.AppComponent

@@ -1,4 +1,4 @@
-package com.dimpossitorus.android.tmdb.presentation.feature.discover
+package com.dimpossitorus.android.tmdb.feature.discover
 
 
 import android.os.Bundle
@@ -16,10 +16,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dimpossitorus.android.tmdb.R
 import com.dimpossitorus.android.tmdb.domain.entities.Genre
 import com.dimpossitorus.android.tmdb.domain.entities.Movie
-import com.dimpossitorus.android.tmdb.presentation.adapter.DiscoverAdapter
-import com.dimpossitorus.android.tmdb.presentation.adapter.OnDiscoverItemClicked
-import com.dimpossitorus.android.tmdb.presentation.feature.BaseFragment
-import com.dimpossitorus.android.tmdb.presentation.feature.movie.MovieDetailFragment
+import com.dimpossitorus.android.tmdb.adapter.DiscoverAdapter
+import com.dimpossitorus.android.tmdb.adapter.OnDiscoverItemClicked
+import com.dimpossitorus.android.tmdb.BaseFragment
+import com.dimpossitorus.android.tmdb.feature.movie.MovieDetailFragment
 import kotlinx.android.synthetic.main.fragment_discover_movie.*
 
 /**
