@@ -1,16 +1,16 @@
 package com.dimpossitorus.android.tmdb
 
-import android.app.Application
 import com.dimpossitorus.android.tmdb.di.AppComponent
 import com.dimpossitorus.android.tmdb.di.AppModule
 import com.dimpossitorus.android.tmdb.di.DaggerAppComponent
+import com.google.android.play.core.splitcompat.SplitCompatApplication
 
-class BaseApplication: Application() {
+class BaseApplication : SplitCompatApplication() {
     lateinit var appComponent: AppComponent
 
     override fun onCreate() {
         super.onCreate()
-        appComponent= DaggerAppComponent
+        appComponent = DaggerAppComponent
             .builder()
             .appModule(AppModule(this))
             .build()

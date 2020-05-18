@@ -1,6 +1,7 @@
 package com.dimpossitorus.android.tmdb.feature.movie
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,14 +13,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.dimpossitorus.android.tmdb.BaseFragment
 import com.dimpossitorus.android.tmdb.R
+import com.dimpossitorus.android.tmdb.adapter.ReviewAdapter
 import com.dimpossitorus.android.tmdb.domain.entities.Movie
 import com.dimpossitorus.android.tmdb.domain.entities.VideosResponse
-import com.dimpossitorus.android.tmdb.adapter.ReviewAdapter
-import com.dimpossitorus.android.tmdb.BaseFragment
-import com.google.android.youtube.player.YouTubeInitializationResult
-import com.google.android.youtube.player.YouTubePlayer
-import com.google.android.youtube.player.YouTubePlayerFragment
+import com.google.android.play.core.splitinstall.SplitInstallManager
+import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
+import com.google.android.play.core.splitinstall.SplitInstallRequest
 import kotlinx.android.synthetic.main.fragment_movie_detail.*
 import java.text.SimpleDateFormat
 
@@ -31,7 +32,6 @@ class MovieDetailFragment : BaseFragment() {
     lateinit var viewModel: MovieDetailViewModel
     lateinit var reviewAdapter: ReviewAdapter
     var movie: Movie? = null
-    var youtubePlayer: YouTubePlayerFragment? = null
 
     var onScrollListener: RecyclerView.OnScrollListener
 
@@ -61,8 +61,6 @@ class MovieDetailFragment : BaseFragment() {
         movie = arguments?.get("MOVIE") as Movie
         viewModel =
             ViewModelProvider(this, viewModelFactory).get(MovieDetailViewModel::class.java)
-        youtubePlayer = YouTubePlayerFragment.newInstance()
-//        childFragmentManager.beginTransaction().add(R.id.trailer, youtubePlayer)
         return view
     }
 
@@ -117,46 +115,67 @@ class MovieDetailFragment : BaseFragment() {
         val localDate = SimpleDateFormat("dd MMMM yyyy").format(movie.releaseDate)
         description.text = "${movie.getRuntimeFriendly()} - ${localDate}"
         val stringBuilder = StringBuilder()
-        for (i in 0 until movie.genres.size - 1) {
-            stringBuilder.append(movie.genres.get(i).name)
-            stringBuilder.append(", ")
-        }
-        stringBuilder.append(movie.genres.get(movie.genres.size - 1).name)
-        genres.text = "Genre : ${stringBuilder.toString()}"
+//        for (i in 0 until movie.genres.size - 1) {
+//            stringBuilder.append(movie.genres.get(i).name)
+//            stringBuilder.append(", ")
+//        }
+//        stringBuilder.append(movie.genres.get(movie.genres.size - 1).name)
+//        genres.text = "Genre : ${stringBuilder.toString()}"
 
         setTrailer(movie.videos)
     }
 
     fun setTrailer(video: VideosResponse) {
-        var trailerId = ""
+        var trailerId: String? = null
         for (videoItem in video.results) {
             if (videoItem.source.equals("youtube", true)
-                && videoItem.source.equals("trailer", true)
+                && videoItem.type.equals("trailer", true)
             ) {
                 trailerId = videoItem.key
                 break
             }
         }
-        youtubePlayer?.initialize(
-            "AIzaSyASm6H_QZzjOQfGjATSHTfzc7dPencyvbw",
-            object : YouTubePlayer.OnInitializedListener {
-                override fun onInitializationSuccess(
-                    provider: YouTubePlayer.Provider?,
-                    player: YouTubePlayer?,
-                    wasRestored: Boolean
-                ) {
-                    if (!wasRestored) {
-                        player?.loadVideo(trailerId)
-                        player?.play()
-                    }
+        toastAndLog(trailerId.orEmpty())
+        trailer.setOnClickListener {
+            trailerId?.let {
+                openPlayer(it)
+            }
+        }
+    }
+
+    fun openPlayer(videoId: String) {
+        val packageName = requireContext().packageName
+        val playerClassName = "$packageName.player.PlayerActivity"
+
+        var manager: SplitInstallManager = SplitInstallManagerFactory.create(context)
+        if (manager.installedModules.contains(resources.getString(R.string.module_player))) {
+            toastAndLog("Module player has installed")
+            Intent()
+                .setClassName(packageName, playerClassName)
+                .putExtra("VIDEO_ID", videoId).also {
+                    startActivity(it)
                 }
 
-                override fun onInitializationFailure(
-                    provider: YouTubePlayer.Provider?,
-                    result: YouTubeInitializationResult?
-                ) {
+        } else {
+            toastAndLog("The assets module is not installed")
 
+            // We just added the following lines
+            val request = SplitInstallRequest.newBuilder()
+                .addModule(resources.getString(R.string.module_player))
+                .build()
+
+            manager.startInstall(request)
+                .addOnCompleteListener {
+                    toastAndLog("Module player installed")
+                    openPlayer(videoId)
                 }
-            })
+                .addOnSuccessListener { toastAndLog("Loading player") }
+                .addOnFailureListener { toastAndLog("Error Loading player") }
+        }
+    }
+
+    fun toastAndLog(text: String) {
+        Toast.makeText(requireContext(), text, Toast.LENGTH_LONG).show()
+        Log.d("PLAYER", text)
     }
 }

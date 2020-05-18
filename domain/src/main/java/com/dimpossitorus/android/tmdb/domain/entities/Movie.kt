@@ -13,7 +13,7 @@ data class Movie(
     val overview: String,
     val adult: Boolean,
     @SerializedName("backdrop_path") val backdropPath: String,
-    @SerializedName("genres") val genres: List<Genre>,
+//    @SerializedName("genres") val genres: List<Genre>,
     val homepage: String,
     @SerializedName("release_date") val releaseDate: Date,
     val runtime: Int,
