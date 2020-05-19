@@ -14,7 +14,7 @@
     </dist:module>
 
     <application>
-        <activity android:name=".PlayerActivity">
+        <activity android:name="com.dimpossitorus.android.tmdb.player.PlayerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>

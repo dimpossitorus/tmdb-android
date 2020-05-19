@@ -170,7 +170,8 @@ class MovieDetailFragment : BaseFragment() {
                     openPlayer(videoId)
                 }
                 .addOnSuccessListener { toastAndLog("Loading player") }
-                .addOnFailureListener { toastAndLog("Error Loading player") }
+                .addOnFailureListener {
+                    toastAndLog("Error Loading player") }
         }
     }
 
